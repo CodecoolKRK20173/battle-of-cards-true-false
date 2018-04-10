@@ -39,58 +39,10 @@ public class Card {
 
 
     public String toString() {
-        String card = "Card: " + rank.getRankName() + " " + suit.getSuitName() + ".";
+        String card = "Card: " + rank.getRankName() + " of " + suit.getSuitName() + ".";
         return card;
     }
 
 
-    public enum Suit {
-        HEARTS("hearts"),
-        DIAMONDS("diamonds"),
-        SPADES("spades"),
-        CLUBS("clubs");
 
-
-        private String suitName;
-
-
-        Suit(String suitName){
-            this.suitName = suitName;
-        }
-
-
-        public String getSuitName() {
-            return suitName;
-        }
-    }
-
-
-    public enum Rank {
-        ACE("Ace"),
-        TWO("2"),
-        THREE("3"),
-        FOUR("4"),
-        FIVE("5"),
-        SIX("6"),
-        SEVEN("7"),
-        EIGHT("8"),
-        NINE("9"),
-        TEN("10"),
-        JACK("Jack"),
-        QUEEN("Queen"),
-        KING("King");
-
-
-        private String rankName;
-
-
-        Rank(String rankName){
-            this.rankName = rankName;
-        }
-
-
-        public String getRankName() {
-            return rankName;
-        }
-    }
 }
