@@ -1,6 +1,7 @@
 package com.codecool.java.cheatCardGame;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class View {
 
@@ -39,5 +40,22 @@ public class View {
         for (Player enemy: enemyPlayers) {
             System.out.print(" " + enemy.getPlayerName());
         } System.out.println("");
+    }
+
+
+    public void showEnemyMove(Player enemy) {
+        String move1 = "Throw a card";
+        String move2 = "Check a stack";
+        System.out.print("Player " + enemy.getPlayerName() + ": ");
+        if (enemy.getPlayerMove().equalsIgnoreCase(move1))
+            System.out.print(move1);
+        else
+            System.out.print(move2);
+        System.out.println("");
+    }
+
+
+    public void showPlayerPossibleMoves() {
+        System.out.println("1) Throw a card    2) Check stack");
     }
 }
