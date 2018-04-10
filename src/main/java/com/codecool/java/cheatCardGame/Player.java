@@ -5,13 +5,15 @@ import java.util.ArrayList;
 
 
 class Player {
-    String name;
-    // List<Card>  = new ArrayList<>();
-    Hand hand;
+    private String name;
+    private Hand hand;
+
     Player(String name) {
         this.name = name;
         this.hand = new Hand();
     }
     
-    // public void addCard(Card card);
+    public Hand getHand() {
+        return hand;
+    }
 }
