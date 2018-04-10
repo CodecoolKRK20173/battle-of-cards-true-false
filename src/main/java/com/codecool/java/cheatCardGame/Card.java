@@ -39,7 +39,7 @@ public class Card {
 
 
     public String toString() {
-        String card = "Card: " + rank.getRankName() + " " + suit.getSuitName() + ".";
+        String card = "Card: " + rank.getRankName() + " of " + suit.getSuitName() + ".";
         return card;
     }
 
