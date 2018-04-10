@@ -1,63 +1,100 @@
 package com.codecool.java.cheatCardGame;
 
-import java.util.ArrayList;
-import java.util.List;
+class Hand implements Stackable {
+    package com.codecool.java.cheatCardGame;
 
-public class Hand {
-    List<Card> cardsList;
+    public class Card {
 
-    public Hand() {
-        this.cardsList = new ArrayList<>();
-    }
+        private Suit suit;
+        private Rank rank;
+        private boolean isFaceDown;
 
-
-    public void addCard(Card card) {
-        this.cardsList.add(card);
-    }
-
-
-    public void remove(Card card) {
-        //for (Card card: cards) {
-            this.cardsList.remove(card);
-        //}
-    }
-
-
-    public boolean isEmpty() {
-        if (this.cardsList.size() > 0) {
-            return false;
+        public Card(Suit suit, Rank rank) {
+            this.suit = suit;
+            this.rank = rank;
+            this.isFaceDown = true;
         }
-        return true;
-    }
 
 
-    public String toString() {
-        int[] cardsBySuit = calculateCardsBySuit();
-        String hand = "Cards in hand: " + cardsBySuit[0] + "x H, " +
-                    cardsBySuit[1] + "x D, " +
-                    cardsBySuit[2] + "x M, " +
-                    cardsBySuit[3] + "x S";
-        return hand;
-    }
-
-
-    private int[] calculateCardsBySuit() {
-        int heartsNumber = 0;
-        int diamondsNumber = 0;
-        int macesNumber = 0;
-        int spadesNumber = 0;
-        for (Card card: cardsList) {
-            if (card.getSuit() == Card.Suit.HEARTS)
-                heartsNumber += 1;
-            else if (card.getSuit() == Card.Suit.DIAMONDS)
-                diamondsNumber += 1;
-            else if (card.getSuit() == Card.Suit.MACES)
-                macesNumber += 1;
-            else
-                spadesNumber += 1;
+        public Suit getSuit() {
+            return this.suit;
         }
-        int[] cardsBySuit = {heartsNumber, diamondsNumber,
-                            macesNumber, spadesNumber};
-        return cardsBySuit;
+
+
+        public Rank getRank() {
+            return this.rank;
+        }
+
+
+        public boolean isFaceDown() {
+            return this.isFaceDown;
+        }
+
+
+        public void setIsFaceDown(boolean isFaceDown) {
+            this.isFaceDown = isFaceDown;
+        }
+
+
+        public void flip() {
+            isFaceDown = !isFaceDown;
+        }
+
+
+        public String toString() {
+            String card = "Card: " + rank.getRankName() + " " + suit.getSuitName() + ".";
+            return card;
+        }
+
+
+        public enum Suit {
+            HEARTS("hearts"),
+            DIAMONDS("diamonds"),
+            SPADES("spades"),
+            CLUBS("clubs");
+
+
+            private String suitName;
+
+
+            Suit(String suitName){
+                this.suitName = suitName;
+            }
+
+
+            public String getSuitName() {
+                return suitName;
+            }
+        }
+
+
+        public enum Rank {
+            ACE("Ace"),
+            TWO("2"),
+            THREE("3"),
+            FOUR("4"),
+            FIVE("5"),
+            SIX("6"),
+            SEVEN("7"),
+            EIGHT("8"),
+            NINE("9"),
+            TEN("10"),
+            JACK("Jack"),
+            QUEEN("Queen"),
+            KING("King");
+
+
+            private String rankName;
+
+
+            Rank(String rankName){
+                this.rankName = rankName;
+            }
+
+
+            public String getRankName() {
+                return rankName;
+            }
+        }
     }
 }
