@@ -33,7 +33,8 @@ public class Hand implements Stackable {
 
     public String toString() {
         int[] cardsBySuit = calculateCardsBySuit();
-        String hand = "Cards in hand: " + cardsBySuit[0] + "x \u2665, " +
+        String hand = "Cards in hand: " +
+                    cardsBySuit[0] + "x \u2665, " +
                     cardsBySuit[1] + "x \u2666, " +
                     cardsBySuit[2] + "x \u2663, " +
                     cardsBySuit[3] + "x \u2660";
