@@ -17,9 +17,7 @@ public class Hand implements Stackable {
 
 
     public void removeCard(Card card) {
-        //for (Card card: cards) {
-            this.cardsList.remove(card);
-        //}
+        this.cardsList.remove(card);
     }
 
 
@@ -39,6 +37,11 @@ public class Hand implements Stackable {
                     cardsBySuit[2] + "x \u2663, " +
                     cardsBySuit[3] + "x \u2660";
         return hand;
+    }
+
+
+    public int getNumOfCards() {
+        return this.cardsList.size();
     }
 
 
