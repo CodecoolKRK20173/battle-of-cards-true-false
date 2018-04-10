@@ -1,6 +1,7 @@
 package com.codecool.java.cheatCardGame;
 
-public class Card {
+import java.lang.Math;
+public class Card implements Comparable<Card> {
 
     private Suit suit;
     private Rank rank;
@@ -10,6 +11,17 @@ public class Card {
         this.suit = suit;
         this.rank = rank;
         this.isFaceDown = true;
+    }
+
+    public int compareTo(Card object) {
+        if (object instanceof Card) {
+            int i = this.suit.getSuitValue() - object.getSuit().getSuitValue();
+            if(i < 0) return -1;
+            else if(i == 0) return 0;
+            else return 1;
+        } else {
+            throw new IllegalArgumentException();
+        } 
     }
 
 
