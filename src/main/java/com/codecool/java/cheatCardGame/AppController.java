@@ -26,11 +26,23 @@ class AppController {
     }
     
     public void run() {
-        boolean isGameWon = false;
 
-        while(!isGameWon) {
+        while(winCondition()) {
             //get input etc..
+            System.out.println("Main loop");
+            reader.nextLine(); 
+            for(int i=0;i<40; i++)
+            System.out.println(deck.get(i).compareTo(deck.get(i+1)));
         }
+    }
+    private boolean winCondition() {
+        int counter = 0;
+        for(Player player : playerList) {
+            if(!player.getHand().getCardList().isEmpty()) counter++;
+        }
+        if(counter == playerList.size()) return true;
+        else return false;
+
     }
     
     private List<Player> makePlayers(int numberOfPlayers) {
@@ -38,6 +50,7 @@ class AppController {
         String playerName;
 
         for(int i=0; i<numberOfPlayers; i++) {
+            System.out.print("Name of player " + (i+1)+ ": ");
             playerName = reader.nextLine();
             playerList.add(new Player(playerName));                
         }
