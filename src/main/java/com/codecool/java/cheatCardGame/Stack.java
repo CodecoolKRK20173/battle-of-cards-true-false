@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 class Stack implements Stackable {
 
-    List<Card> stackCards;
+    private List<Card> stackCards;
 
     public Stack() {
         this.stackCards = new ArrayList<>();
