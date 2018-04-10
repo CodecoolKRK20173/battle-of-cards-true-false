@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Hand implements Stackable {
     List<Card> cardsList;
+    Suit suit;
+    Rank rank;
 
     public Hand() {
         this.cardsList = new ArrayList<>();
