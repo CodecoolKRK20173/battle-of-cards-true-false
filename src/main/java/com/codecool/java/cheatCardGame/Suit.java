@@ -1,21 +1,21 @@
 package com.codecool.java.cheatCardGame;
     public enum Suit {
-        HEARTS("hearts"),
-        DIAMONDS("diamonds"),
-        SPADES("spades"),
-        CLUBS("clubs");
+        HEARTS(1),
+        DIAMONDS(2),
+        SPADES(3),
+        CLUBS(4);
 
 
-        private String suitName;
+        private int suitValue;
 
 
-        Suit(String suitName){
-            this.suitName = suitName;
+        Suit(int suitValue){
+            this.suitValue = suitValue;
         }
 
 
-        public String getSuitName() {
-            return suitName;
+        public int getSuitValue() {
+            return suitValue;
         }
     }
 
