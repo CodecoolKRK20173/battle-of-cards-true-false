@@ -1,6 +1,15 @@
 # Compiled class file
 *.class
-/src/target
+src/target/
+target/
+# Maven staff
+
+.classpath
+.project
+.settings/
+
+# VSC staff
+.vscode/
 
 # Log file
 *.log
