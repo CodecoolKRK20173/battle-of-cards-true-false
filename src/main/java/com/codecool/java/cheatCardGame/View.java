@@ -3,9 +3,6 @@ package com.codecool.java.cheatCardGame;
 import java.util.List;
 
 public class View {
-    public static void main(String[] args) {
-        // for tests
-    }
 
     private List<Player> enemyPlayers;
     private Player player;
@@ -26,7 +23,7 @@ public class View {
     public void showNumOfEnemyCards() {
         System.out.print("Enemy players cards: ");
         for (Player enemy: enemyPlayers) {
-            System.out.print(enemy.getPlayerName() + "-> " +
+            System.out.print(enemy.getPlayerName() + " -> " +
                             enemy.getHand().getNumOfCards()+ "x ");
         } System.out.println("");
     }
@@ -34,5 +31,13 @@ public class View {
 
     public void showCardStack() {
         System.out.println(stack);
+    }
+
+
+    public void showAllPlayers() {
+        System.out.print(player.getPlayerName());
+        for (Player enemy: enemyPlayers) {
+            System.out.print(" " + enemy.getPlayerName());
+        } System.out.println("");
     }
 }
