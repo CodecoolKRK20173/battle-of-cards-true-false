@@ -14,9 +14,15 @@ git clone https://github.com/CodecoolKRK20173/battle-of-cards-true-false.git
 
 Compile & run the game.
 
+```
+mvn compile
+mvn exec:java -Dexec.mainClass=Main
+```
+
 ## Built With
 
 * [Java](https://java.com/en/)
+* [Maven](https://maven.apache.org/)
 
 ## Versioning
 
