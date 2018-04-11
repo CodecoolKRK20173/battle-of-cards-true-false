@@ -1,15 +1,22 @@
-package com.codecool.java.cheatCardGame;
+package com.codecool.java.cheatCardGame.models;
+
+import com.codecool.java.cheatCardGame.Stackable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Hand implements Stackable {
-    List<Card> cardsList;
+    private List<Card> cardsList;
+    private Suit suit;
+    private Rank rank;
 
     public Hand() {
         this.cardsList = new ArrayList<>();
     }
 
+    public List<Card> getCardList() {
+        return cardsList;
+    }
 
     public void addCard(Card card) {
         this.cardsList.add(card);
@@ -51,11 +58,11 @@ public class Hand implements Stackable {
         int clubsNumber = 0;
         int spadesNumber = 0;
         for (Card card: cardsList) {
-            if (card.getSuit() == Card.Suit.HEARTS)
+            if (card.getSuit() == Suit.HEARTS)
                 heartsNumber += 1;
-            else if (card.getSuit() == Card.Suit.DIAMONDS)
+            else if (card.getSuit() == Suit.DIAMONDS)
                 diamondsNumber += 1;
-            else if (card.getSuit() == Card.Suit.CLUBS)
+            else if (card.getSuit() == Suit.CLUBS)
                 clubsNumber += 1;
             else
                 spadesNumber += 1;

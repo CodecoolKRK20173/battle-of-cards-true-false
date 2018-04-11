@@ -1,15 +1,13 @@
 
-package com.codecool.java.cheatCardGame;
-import java.util.List;
-import java.util.ArrayList;
+package com.codecool.java.cheatCardGame.models;
 
 
-class Player {
+public class Player {
     private String name;
     private Hand hand;
     private String playerMove;// for test
 
-    Player(String name) {
+    public Player(String name) {
         this.name = name;
         this.hand = new Hand();
     }
@@ -18,7 +16,7 @@ class Player {
         return hand;
     }
 
-    public String getPlayerName() {
+    public String getName() {
         return this.name;
     }
 

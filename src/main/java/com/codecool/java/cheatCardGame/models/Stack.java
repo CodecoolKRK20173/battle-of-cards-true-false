@@ -1,9 +1,11 @@
-package com.codecool.java.cheatCardGame;
+package com.codecool.java.cheatCardGame.models;
+
+import com.codecool.java.cheatCardGame.Stackable;
 
 import java.util.List;
 import java.util.ArrayList;
 
-class Stack implements Stackable {
+public class Stack implements Stackable {
 
     private List<Card> stackCards;
 
