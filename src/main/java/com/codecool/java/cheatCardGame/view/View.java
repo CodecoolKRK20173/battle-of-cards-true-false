@@ -45,9 +45,15 @@ public class View {
 
 
     public void showAllPlayers() {
-        System.out.print(player.getName());
+        if (player.isPlayerMove())
+            System.out.print(" \u001B[46m" + player.getName() + "\u001B[0m");
+        else
+            System.out.print(player.getName());
         for (Player enemy: enemyPlayers) {
-            System.out.print(" " + enemy.getName());
+            if (enemy.isPlayerMove())
+                System.out.print(" \u001B[46m" + enemy.getName() + "\u001B[0m");
+            else
+                System.out.print(" " + enemy.getName());
         } System.out.println("");
     }
 
