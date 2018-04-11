@@ -70,7 +70,7 @@ public class View {
     }
 
 
-    public void setPlayerMoves(String move1, String move2) {
+    public void setHighlightedPlayerMove(String move1, String move2) {
         this.playerMove1 = move1;
         this.playerMove2 = move2;
     }
