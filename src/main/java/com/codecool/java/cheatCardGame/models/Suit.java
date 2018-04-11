@@ -18,7 +18,7 @@ package com.codecool.java.cheatCardGame.models;
             return suitValue;
         }
 
-        public int getSuitName() {
+        public String getSuitName() {
             if (suitValue == 1)
                 return "hearts";
             else if (suitValue == 2)
