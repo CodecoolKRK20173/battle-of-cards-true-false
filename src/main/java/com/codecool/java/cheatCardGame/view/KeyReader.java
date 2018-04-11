@@ -26,10 +26,10 @@ public class KeyReader extends JFrame implements KeyListener {
 
     public void keyPressed(KeyEvent e) {
         if (Character.toString(e.getKeyChar()).equalsIgnoreCase("a")) {
-            view.setPlayerMoves("\u001B[46m1) Throw a card  \u001B[0m", "  2) Check stack");
+            view.setHighlightedPlayerMove("\u001B[46m1) Throw a card  \u001B[0m", "  2) Check stack");
             view.showCurrentGameStage();
         } else if (Character.toString(e.getKeyChar()).equalsIgnoreCase("d")) {
-            view.setPlayerMoves("1) Throw a card  ", "\u001B[46m  2) Check stack\u001B[0m");
+            view.setHighlightedPlayerMove("1) Throw a card  ", "\u001B[46m  2) Check stack\u001B[0m");
             view.showCurrentGameStage();
         }
     }
