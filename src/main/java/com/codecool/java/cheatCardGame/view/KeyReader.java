@@ -18,10 +18,7 @@ public class KeyReader extends JFrame implements KeyListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
-        Button i = new Button("button");
-        i.addKeyListener(this);
-        char a = (char) 97;
-        add(i);
+        add(getHiddenButton());
     }
 
     public void keyPressed(KeyEvent e) {
@@ -32,6 +29,12 @@ public class KeyReader extends JFrame implements KeyListener {
             view.setHighlightedPlayerMove("1) Throw a card  ", "\u001B[46m  2) Check stack\u001B[0m");
             view.showCurrentGameStage();
         }
+    }
+
+    private Button getHiddenButton() {
+        Button hiddenButton = new Button("button");
+        hiddenButton.addKeyListener(this);
+        return hiddenButton;
     }
 
     public void keyReleased(KeyEvent e) {
