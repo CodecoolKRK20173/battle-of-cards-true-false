@@ -119,20 +119,21 @@ public class GDrive {
                 .build();
     }
 
-    public static String getGameStateFile(String id) throws IOException {
-        Drive service = getDriveService();
+    public static String getFileContent(Drive service, String fileId) {
 
-        String fileId = id;
         OutputStream outputStream = new ByteArrayOutputStream();
-        service.files().get(fileId).executeMediaAndDownloadTo(outputStream);
+        try {
+            String id = fileId;
+            service.files().get(id).executeMediaAndDownloadTo(outputStream);
 
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
         return outputStream.toString();
     }
 
-    public static String updateFile(Drive service, String fileId, String fileName, String fileContent) {
+    public static String setNewFile(Drive service, String fileName, String fileContent) {
         try {
-            removeFile(service, fileId);
-
             File fileMetadata = new File();
             fileMetadata.setName(fileName);
             // fileMetadata.setParents(Collections.singletonList("kk"));
@@ -153,8 +154,9 @@ public class GDrive {
         }
     }
 
-    public static boolean removeFile(Drive service, String fileId) {
+    public static boolean removeFile(String fileId) {
         try {
+            Drive service = getDriveService();
             service.files().delete(fileId).execute();
             return true;
         } catch (Exception e) {
@@ -163,26 +165,9 @@ public class GDrive {
         }
     }
 
-    public static void setCofigFile(Drive service, String fileId, String content) throws IOException {
-
-        File fileMetadata = new File();
-        fileMetadata.setName("config.json");
-        // fileMetadata.setParents(Collections.singletonList("kk"));
-
-        PrintWriter writer = new PrintWriter("config.json", "UTF-8");
-        writer.println(content);
-        writer.close();
-
-        java.io.File filePath = new java.io.File("config.json");
-        FileContent mediaContent = new FileContent("application/json", filePath);
-        File file = service.files().create(fileMetadata, mediaContent).setFields("id").execute();
-        System.out.println("File ID: " + file.getId());
-    }
-
-    public static String getFileId(Drive service, String fileId) throws IOException {
-        String configID = null;
+    public static String getFileId(Drive service, String fileName) throws IOException {
+        String fileId = null;
         FileList result = service.files().list()
-                .setPageSize(10)
                 .setFields("nextPageToken, files(id, name)")
                 .execute();
         List<File> files = result.getFiles();
@@ -190,74 +175,12 @@ public class GDrive {
             System.out.println("No files found.");
         } else {
             for (File file : files) {
-                if (file.getName().equals(fileId)) {
-                    configID = file.getId();
+                if (file.getName().equals(fileName)) {
+                    fileId = file.getId();
                     break;
                 }
             }
         }
-        return configID;
+        return fileId;
     }
-
-    public static File updateFile(Drive service,
-                                  String fileId,
-                                  String newDescription,
-                                  String newMimeType,
-                                  String newFilename) {
-        try {
-
-            // First retrieve the file from the API.
-            File file = service.files().get(fileId).execute();
-
-            // File's new metadata.
-            file.setDescription(newDescription);
-            file.setMimeType(newMimeType);
-
-            // File's new content.
-            java.io.File fileContent = new java.io.File("config.json");
-
-
-            PrintWriter writer = new PrintWriter("config.json", "UTF-8");
-            writer.println(newFilename);
-            writer.close();
-
-            FileContent mediaContent = new FileContent(newMimeType, fileContent);
-
-            // Send the request to the API.
-            File updatedFile = service.files().update(fileId, file, mediaContent).execute();
-
-            return updatedFile;
-        } catch (IOException e) {
-            System.out.println("An error occurred: " + e);
-            return null;
-        }
-    }
-
 }
-
-// public static void main(String[] args) throws IOException {
-// Build a new authorized API client service.
-
-// // Print the names and IDs for up to 10 files.
-// FileList result = service.files().list()
-//      .setPageSize(10)
-//      .setFields("nextPageToken, files(id, name)")
-//      .execute();
-// List<File> files = result.getFiles();
-// if (files == null || files.size() == 0) {
-//     System.out.println("No files found.");
-// } else {
-//     System.out.println("Files:");
-//     for (File file : files) {
-//         // System.out.printf("%s (%s)\n", file.getName(), file.getId());
-//     }
-// }
-
-
-// String fileId = "1HkRkQHitIWOlets9uRhlm5ObrWXIw62g";
-// OutputStream outputStream = new ByteArrayOutputStream();
-// service.files().get(fileId).executeMediaAndDownloadTo(outputStream);
-
-
-// System.out.println(getGameStateFile("1gwSIY-CjJsZvhM7cHT4Q-O5pQReV_VYu"));
-// }
