@@ -1,6 +1,6 @@
-package com.codecool.java.cheatCardGame;
+package com.codecool.java.cheatCardGame.view;
 
-import com.codecool.java.cheatCardGame.models.*;
+import com.codecool.java.cheatCardGame.models.Stack;
 import com.codecool.java.cheatCardGame.models.Player;
 import java.util.List;
 import java.util.ArrayList;
@@ -66,7 +66,7 @@ public class View {
 
 
     private void consoleReadingDemo() {
-        InputStreamReader reader = new InputStreamReader(System.in);
+        /*InputStreamReader reader = new InputStreamReader(System.in);
         boolean b = false;
         while(!b)
         {
@@ -84,6 +84,6 @@ public class View {
              } catch (InterruptedException ex) {
                 System.out.println("Interrupted Exception");
              }
-        }
+        }*/
     }
 }
