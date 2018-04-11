@@ -7,6 +7,7 @@ import java.util.ArrayList;
 class Player {
     private String name;
     private Hand hand;
+    private String playerMove;// for test
 
     Player(String name) {
         this.name = name;
@@ -19,5 +20,15 @@ class Player {
 
     public String getPlayerName() {
         return this.name;
+    }
+
+
+    public void setPlayerMove(String playerMove) {
+        this.playerMove = playerMove;
+    }
+
+
+    public String getPlayerMove() {
+        return this.playerMove;
     }
 }
