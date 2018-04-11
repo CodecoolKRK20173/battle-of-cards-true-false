@@ -8,8 +8,9 @@ target/
 .project
 .settings/
 
-# VSC staff
+# Editors staff
 .vscode/
+.idea/
 
 # Log file
 *.log
