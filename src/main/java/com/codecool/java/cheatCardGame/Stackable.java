@@ -1,7 +1,9 @@
 
 package com.codecool.java.cheatCardGame;
 
-interface Stackable {
+import com.codecool.java.cheatCardGame.models.Card;
+
+public interface Stackable {
     public void addCard(Card card);
     public void removeCard(Card card);
     public String toString();

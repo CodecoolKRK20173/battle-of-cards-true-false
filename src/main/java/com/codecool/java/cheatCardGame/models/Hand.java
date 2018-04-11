@@ -1,4 +1,6 @@
-package com.codecool.java.cheatCardGame;
+package com.codecool.java.cheatCardGame.models;
+
+import com.codecool.java.cheatCardGame.Stackable;
 
 import java.util.ArrayList;
 import java.util.List;

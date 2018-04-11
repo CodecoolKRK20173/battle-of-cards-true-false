@@ -1,6 +1,7 @@
-package com.codecool.java.cheatCardGame;
+package com.codecool.java.cheatCardGame.models;
 
-import java.lang.Math;
+import com.codecool.java.cheatCardGame.models.Rank;
+
 public class Card implements Comparable<Card> {
 
     private Suit suit;

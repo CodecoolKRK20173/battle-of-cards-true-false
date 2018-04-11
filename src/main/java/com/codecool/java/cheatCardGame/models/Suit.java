@@ -1,4 +1,4 @@
-package com.codecool.java.cheatCardGame;
+package com.codecool.java.cheatCardGame.models;
     public enum Suit {
         HEARTS(1),
         DIAMONDS(2),
@@ -15,6 +15,11 @@ package com.codecool.java.cheatCardGame;
 
 
         public int getSuitValue() {
+            return suitValue;
+        }
+
+        public int getSuitName() {
+            //FIX:
             return suitValue;
         }
     }

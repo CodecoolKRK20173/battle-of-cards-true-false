@@ -1,5 +1,5 @@
     
-package com.codecool.java.cheatCardGame;
+package com.codecool.java.cheatCardGame.models;
     
     public enum Rank {
         ACE("Ace"),

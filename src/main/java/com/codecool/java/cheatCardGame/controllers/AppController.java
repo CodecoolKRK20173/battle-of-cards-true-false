@@ -1,19 +1,24 @@
+package com.codecool.java.cheatCardGame.controllers;
 
-package com.codecool.java.cheatCardGame;
+import com.codecool.java.cheatCardGame.models.Suit;
+import com.codecool.java.cheatCardGame.models.Card;
+import com.codecool.java.cheatCardGame.models.Player;
+import com.codecool.java.cheatCardGame.models.Rank;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Iterator;
 
-class AppController {
+public class AppController {
     Scanner reader = new Scanner(System.in);
-    List<Player> playerList;  
+    List<Player> playerList;
     List<Card> deck;
     Rank rank;
     Suit suit;
 
-    AppController(int numOfPlayers) {
+    public AppController(int numOfPlayers) {
         this.playerList = makePlayers(numOfPlayers);
         this.deck = generateDeck();
         dealCards();
