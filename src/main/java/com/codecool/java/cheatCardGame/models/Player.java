@@ -27,6 +27,15 @@ public class Player {
     }
 
 
+    public void turnPlayerMove(){
+        isPlayerMove = !isPlayerMove;
+    }
+
+    public boolean isPlayerMove() {
+        return this.isPlayerMove;
+    }
+
+
     public String getPlayerMove() {
         return this.playerMove;
     }
