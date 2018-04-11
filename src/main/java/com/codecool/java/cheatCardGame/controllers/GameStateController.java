@@ -25,7 +25,7 @@ public class GameStateController {
     }
 
     public void updateGameState(String fileContent) {
-        if(GDrive.removeFile(this.fileId)) {
+        if(GDrive.removeFile(this.service, this.fileId)) {
             this.fileId = GDrive.setNewFile(this.service, this.fileName, fileContent);
         }
     }

@@ -154,9 +154,8 @@ public class GDrive {
         }
     }
 
-    public static boolean removeFile(String fileId) {
+    public static boolean removeFile(Drive service, String fileId) {
         try {
-            Drive service = getDriveService();
             service.files().delete(fileId).execute();
             return true;
         } catch (Exception e) {
