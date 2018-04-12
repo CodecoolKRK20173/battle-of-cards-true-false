@@ -5,6 +5,8 @@ import com.codecool.java.cheatCardGame.models.Card;
 import com.codecool.java.cheatCardGame.models.Player;
 import com.codecool.java.cheatCardGame.models.Rank;
 import com.google.gson.Gson;
+import com.codecool.java.cheatCardGame.models.Stack;
+import com.codecool.java.cheatCardGame.view.View;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,37 +22,47 @@ public class AppController {
     Rank rank;
     Suit suit;
 
+    GameStateController cardState = new GameStateController("cardList.json");
+    GameStateController playerState = new GameStateController("playerList.json");
+
     public AppController(int numOfPlayers, String gameMode) {
         this.playerList = makePlayers(numOfPlayers);
         this.deck = generateDeck();
         dealCards();
-        GameStateController cardState = new GameStateController("cardList.json");
-        GameStateController playerState = new GameStateController("playerList.json");
+        updateState();
+
+    }
+
+    public AppController(String gameMode) {
+
+        getState();
+//        playerList.get(1).setLastPlayerMove("Throw a card");
+//        playerList.get(1).turnPlayerMove();
+
+//        View view = new View(playerList.subList(1, playerList.size()), playerList.get(0), new Stack());
+
+        System.out.println(this.playerList);
+        System.out.println(this.deck);
+        System.out.println("Main loop");
+    }
+
+
+    public void run() {
+        //
+    }
+
+
+    public void getState() {
+        this.deck = this.parser.fromJson(this.cardState.getGameState(), List.class);
+        this.playerList = this.parser.fromJson(this.playerState.getGameState(), List.class);
+    }
+
+    public void updateState() {
         playerState.updateGameState(this.parser.toJson(this.playerList));
         cardState.updateGameState(this.parser.toJson(this.deck));
     }
 
-    public AppController(String gameMode) {
-        GameStateController cardState = new GameStateController("cardList.json");
-        GameStateController playerState = new GameStateController("playerList.json");
 
-        this.deck = this.parser.fromJson(cardState.getGameState(), List.class);
-        this.playerList = this.parser.fromJson(playerState.getGameState(), List.class);
-    }
-    
-    public void run() {
-//        reader.nextLine();
-//        while(winCondition()) {
-            //get input etc..
-//            System.out.println("Main loop");
-//            reader.nextLine();
-//            for(int i=0;i<40; i++)
-//            System.out.println(deck.get(i).compareTo(deck.get(i+1)));
-//            break;
-//        }
-        System.out.println(this.playerList);
-        System.out.println(this.deck);
-    }
     public boolean winCondition() {
         int counter = 0;
         for(Player player : playerList) {
@@ -60,7 +72,7 @@ public class AppController {
         else return false;
 
     }
-    
+
     public List<Player> makePlayers(int numberOfPlayers) {
         List<Player> playerList = new ArrayList<>();
         Scanner reader = new Scanner(System.in);
@@ -70,7 +82,7 @@ public class AppController {
 
             System.out.print("Name of player " + (i+1)+ ": ");
             playerName = reader.nextLine();
-            playerList.add(new Player(playerName));                
+            playerList.add(new Player(playerName));
         }
 
         return playerList;
