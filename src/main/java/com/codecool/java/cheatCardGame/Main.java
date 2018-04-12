@@ -1,6 +1,7 @@
 package com.codecool.java.cheatCardGame;
 
 import com.codecool.java.cheatCardGame.controllers.AppController;
+<<<<<<< Updated upstream
 import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
@@ -33,5 +34,24 @@ public class Main {
 
         reader.close();
 
+=======
+import com.codecool.java.cheatCardGame.models.Player;
+import com.codecool.java.cheatCardGame.models.Stack;
+import com.codecool.java.cheatCardGame.view.View;
+import java.util.List;
+import java.util.ArrayList;
+
+public class Main {
+    public static void main(String[] args) {
+        AppController game = new AppController(5);
+        game.run();
+        /*List<Player> playerList = new ArrayList<>();
+        playerList.add(new Player("Opponent"));
+        playerList.get(0).setLastPlayerMove("Throw a card");
+        playerList.get(0).setIsLastMove();
+        playerList.get(0).turnPlayerMove();
+        Player player = new Player("Player");
+        View view = new View(playerList, player, new Stack());*/
+>>>>>>> Stashed changes
     }
 }

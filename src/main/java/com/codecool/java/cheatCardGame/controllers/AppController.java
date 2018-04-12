@@ -5,6 +5,8 @@ import com.google.gson.Gson;
 import com.codecool.java.cheatCardGame.models.Card;
 import com.codecool.java.cheatCardGame.models.Player;
 import com.codecool.java.cheatCardGame.models.Rank;
+import com.codecool.java.cheatCardGame.models.Stack;
+import com.codecool.java.cheatCardGame.view.View;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,6 +25,7 @@ public class AppController {
         this.playerList = makePlayers(numOfPlayers);
         this.deck = generateDeck();
         dealCards();
+<<<<<<< Updated upstream
         GameStateController gsc = new GameStateController("cardGame.json");
         Gson json = new Gson();
         gsc.updateGameState(json.toJson(this));
@@ -33,14 +36,29 @@ public class AppController {
         //download gson file
         //initialie playerList
         //deck = generatedeck ??
+=======
+        playerList.get(1).setLastPlayerMove("Throw a card");
+        playerList.get(1).turnPlayerMove();
+        View view = new View(playerList.subList(1, playerList.size()), playerList.get(0), new Stack());
+        // // System.out.println(deck);
+        // //for test only
+        // for(Player player : playerList) {
+        //     System.out.println(player.getName() + "-----------" + player.getHand().cardsList.size());
+        //     System.out.println(player.getHand().cardsList);
+        // }
+>>>>>>> Stashed changes
     }
-    
+
     public void run() {
 //        reader.nextLine();
         while(winCondition()) {
             //get input etc..
             System.out.println("Main loop");
+<<<<<<< Updated upstream
 //            reader.nextLine();
+=======
+            reader.nextLine();
+>>>>>>> Stashed changes
             for(int i=0;i<40; i++)
             System.out.println(deck.get(i).compareTo(deck.get(i+1)));
         }
@@ -54,8 +72,13 @@ public class AppController {
         else return false;
 
     }
+<<<<<<< Updated upstream
     
     public List<Player> makePlayers(int numberOfPlayers) {
+=======
+
+    private List<Player> makePlayers(int numberOfPlayers) {
+>>>>>>> Stashed changes
         List<Player> playerList = new ArrayList<>();
         Scanner reader = new Scanner(System.in);
         String playerName;
@@ -64,7 +87,7 @@ public class AppController {
 
             System.out.print("Name of player " + (i+1)+ ": ");
             playerName = reader.nextLine();
-            playerList.add(new Player(playerName));                
+            playerList.add(new Player(playerName));
         }
 
         return playerList;
