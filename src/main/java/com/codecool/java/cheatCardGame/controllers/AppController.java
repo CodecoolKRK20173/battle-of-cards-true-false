@@ -13,7 +13,7 @@ import java.util.Scanner;
 import java.util.Iterator;
 
 public class AppController {
-    Scanner reader = new Scanner(System.in);
+//    Scanner reader = new Scanner(System.in);
     List<Player> playerList;
     List<Card> deck;
     Rank rank;
@@ -23,35 +23,29 @@ public class AppController {
         this.playerList = makePlayers(numOfPlayers);
         this.deck = generateDeck();
         dealCards();
-        GameStateController c = new GameStateController("cardGame.json");
-        Gson g = new Gson();
-        String userJson = g.toJson(this);
-        System.out.println("----> do zpaisu" + userJson);
-        c.updateGameState(userJson);
+        GameStateController gsc = new GameStateController("cardGame.json");
+        Gson json = new Gson();
+        gsc.updateGameState(json.toJson(this));
+        System.out.println(gsc.getGameState());
     }
-    
+
     public AppController(String gameMode) {
         //download gson file
         //initialie playerList
         //deck = generatedeck ??
-        GameStateController c = new GameStateController("cardGame.json");
-        Gson g = new Gson();
-        String file = c.getGameState();
-        System.out.println("zawartosc pliku ----->> " + file);
-        AppController userObject = g.fromJson(file, AppController.class);
     }
     
     public void run() {
-        reader.nextLine();
+//        reader.nextLine();
         while(winCondition()) {
             //get input etc..
             System.out.println("Main loop");
-            reader.nextLine(); 
+//            reader.nextLine();
             for(int i=0;i<40; i++)
             System.out.println(deck.get(i).compareTo(deck.get(i+1)));
         }
     }
-    private boolean winCondition() {
+    public boolean winCondition() {
         int counter = 0;
         for(Player player : playerList) {
             if(!player.getHand().getCardList().isEmpty()) counter++;
@@ -61,11 +55,13 @@ public class AppController {
 
     }
     
-    private List<Player> makePlayers(int numberOfPlayers) {
+    public List<Player> makePlayers(int numberOfPlayers) {
         List<Player> playerList = new ArrayList<>();
+        Scanner reader = new Scanner(System.in);
         String playerName;
 
         for(int i=0; i<numberOfPlayers; i++) {
+
             System.out.print("Name of player " + (i+1)+ ": ");
             playerName = reader.nextLine();
             playerList.add(new Player(playerName));                
@@ -74,7 +70,7 @@ public class AppController {
         return playerList;
     }
 
-    private List<Card> generateDeck() {
+    public List<Card> generateDeck() {
         List<Card> deck = new ArrayList<>();
         for(Suit suit : Suit.values()) {
             for(Rank rank :Rank.values()) {
@@ -85,7 +81,8 @@ public class AppController {
         return deck;
     }
 
-    private void dealCards() {
+
+    public void dealCards() {
         Iterator<Card> deckIterator = deck.iterator();
         while(deckIterator.hasNext()) {
             for(Player player : playerList) {
