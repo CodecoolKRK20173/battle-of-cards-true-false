@@ -23,14 +23,12 @@ public class GameStateController {
     }
 
     public String getGameState() {
-        setFileId();
         System.out.println(this.fileId);
         return GDrive.getFileContent(this.service, this.fileId);
 
     }
 
     public void updateGameState(String fileContent) {
-        setFileId();
         this.fileId = GDrive.setNewFile(this.service, this.fileId, this.fileName, fileContent);
     }
 
