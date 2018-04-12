@@ -59,15 +59,18 @@ public class View {
     }
 
 
-    public void showEnemyMove(Player enemy) {
+    public void showEnemyMove() {
+        Player enemy = getPlayerWithLastMoveTurn();
         String move1 = "Throw a card";
         String move2 = "Check a stack";
-        System.out.print("Player " + enemy.getName() + ": ");
-        if (enemy.getPlayerMove().equalsIgnoreCase(move1))
-            System.out.print(move1);
-        else
-            System.out.print(move2);
-        System.out.println("");
+        if (enemy != null) {
+            System.out.print("Player " + enemy.getName() + ": ");
+            if (enemy.getLastPlayerMove().equalsIgnoreCase(move1))
+                System.out.print(move1);
+            else
+                System.out.print(move2);
+            System.out.println("");
+        }
     }
 
 
@@ -83,12 +86,20 @@ public class View {
     }
 
 
+    private Player getPlayerWithLastMoveTurn() {
+        for (Player enemyPlayer: enemyPlayers) {
+            if (enemyPlayer.isLastMove())
+                return enemyPlayer;
+        } return null;
+    }
+
+
     public void showCurrentGameStage() {
         System.out.print("\033[2J\033[H");
         showAllPlayers();
         showNumOfEnemyCards();
         showCardStack();
-        showEnemyMove(this.enemyPlayers.get(0));
+        showEnemyMove();
         showPlayerPossibleMoves();
         showPlayerHand();
     }
