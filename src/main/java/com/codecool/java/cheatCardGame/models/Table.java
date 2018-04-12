@@ -10,6 +10,7 @@ import java.util.Iterator;
 public class Table {
     List<Player> playerList;
     List<Card> deck;
+    List<Card> waste = new ArrayList<>();
 
     public Table(int numOfPlayers, String gameMode) {
         this.playerList = makePlayers(numOfPlayers);
@@ -18,15 +19,27 @@ public class Table {
     }
 
     public Table(String gameMode) {
-        System.out.println(this.playerList);
-        System.out.println(this.deck);
-        System.out.println("Main loop");
+//        System.out.println(this.playerList);
+//        System.out.println(this.deck);
+//        System.out.println("Main loop");
     }
 
     public void run() {
-        System.out.println(this.deck);
-        System.out.println(this.playerList);
-        System.out.println("-------" + this.playerList.get(0).getHand().getCardList());
+//        System.out.println(this.deck);
+//        System.out.println(this.playerList);
+//        System.out.println("-------" + this.playerList.get(0).getHand().getCardList());
+    }
+
+    public List<Card> getDeck() {
+        return this.deck;
+    }
+
+    public void putCardInWaste(Card c) {
+        waste.add(c);
+    }
+
+    public List<Card> getWaste() {
+        return this.waste;
     }
 
 

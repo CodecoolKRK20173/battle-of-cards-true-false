@@ -1,6 +1,7 @@
 package com.codecool.java.cheatCardGame.view;
 
 import com.codecool.java.cheatCardGame.controllers.KeyReader;
+import com.codecool.java.cheatCardGame.models.Card;
 import com.codecool.java.cheatCardGame.models.Stack;
 import com.codecool.java.cheatCardGame.models.Player;
 import java.util.Scanner;
@@ -14,12 +15,12 @@ public class View {
 
     private List<Player> enemyPlayers;
     private Player player;
-    private Stack stack;
+    private List<Card> stack;
     private String playerMove1 = "1) Throw a card  ";
     private String playerMove2 = "  2) Check stack";
     private KeyReader keyReader;
 
-    public View(List<Player> enemyPlayers, Player player, Stack stack) {
+    public View(List<Player> enemyPlayers, Player player, List<Card> stack) {
         this.enemyPlayers = enemyPlayers;
         this.player = player;
         this.stack = stack;
@@ -132,7 +133,10 @@ public class View {
         showPlayerHand();
     }
 
-
+    public void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
     public Player getLocalPlayer() {
         return this.player;
     }
