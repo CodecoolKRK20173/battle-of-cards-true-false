@@ -30,10 +30,9 @@ public class KeyReader extends JFrame implements KeyListener {
         } else if (Character.toString(e.getKeyChar()).equalsIgnoreCase("d")) {
             view.setHighlightedPlayerMove("1) Throw a card  ", highlightedPlayerMove2);
             view.showCurrentGameStage();
-        } else if (e.getKeyCode == 10) {
+        } else if (e.getKeyCode() == 10) {
             view.showPlayerMove(highlightedPlayerMove1, highlightedPlayerMove2);
         }
-        System.out.println(e.getKeyChar() + "--" + e.getKeyCode());
     }
 
     private Button getHiddenButton() {
