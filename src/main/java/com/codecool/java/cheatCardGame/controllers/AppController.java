@@ -1,10 +1,10 @@
 package com.codecool.java.cheatCardGame.controllers;
 
 import com.codecool.java.cheatCardGame.models.Suit;
-import com.google.gson.Gson;
 import com.codecool.java.cheatCardGame.models.Card;
 import com.codecool.java.cheatCardGame.models.Player;
 import com.codecool.java.cheatCardGame.models.Rank;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,6 +16,7 @@ public class AppController {
 //    Scanner reader = new Scanner(System.in);
     List<Player> playerList;
     List<Card> deck;
+    Gson parser = new Gson();
     Rank rank;
     Suit suit;
 
@@ -23,27 +24,32 @@ public class AppController {
         this.playerList = makePlayers(numOfPlayers);
         this.deck = generateDeck();
         dealCards();
-        GameStateController gsc = new GameStateController("cardGame.json");
-        Gson json = new Gson();
-        gsc.updateGameState(json.toJson(this));
-        System.out.println(gsc.getGameState());
+        GameStateController cardState = new GameStateController("cardList.json");
+        GameStateController playerState = new GameStateController("playerList.json");
+        playerState.updateGameState(this.parser.toJson(this.playerList));
+        cardState.updateGameState(this.parser.toJson(this.deck));
     }
 
     public AppController(String gameMode) {
-        //download gson file
-        //initialie playerList
-        //deck = generatedeck ??
+        GameStateController cardState = new GameStateController("cardList.json");
+        GameStateController playerState = new GameStateController("playerList.json");
+
+        this.deck = this.parser.fromJson(cardState.getGameState(), List.class);
+        this.playerList = this.parser.fromJson(playerState.getGameState(), List.class);
     }
     
     public void run() {
 //        reader.nextLine();
-        while(winCondition()) {
+//        while(winCondition()) {
             //get input etc..
-            System.out.println("Main loop");
+//            System.out.println("Main loop");
 //            reader.nextLine();
-            for(int i=0;i<40; i++)
-            System.out.println(deck.get(i).compareTo(deck.get(i+1)));
-        }
+//            for(int i=0;i<40; i++)
+//            System.out.println(deck.get(i).compareTo(deck.get(i+1)));
+//            break;
+//        }
+        System.out.println(this.playerList);
+        System.out.println(this.deck);
     }
     public boolean winCondition() {
         int counter = 0;
@@ -68,6 +74,10 @@ public class AppController {
         }
 
         return playerList;
+    }
+
+    public List<Player> getPlayerList() {
+        return this.playerList;
     }
 
     public List<Card> generateDeck() {
