@@ -52,7 +52,7 @@ public class Hand implements Stackable {
     }
 
 
-    private int[] calculateCardsBySuit() {
+    public int[] calculateCardsBySuit() {
         int heartsNumber = 0;
         int diamondsNumber = 0;
         int clubsNumber = 0;
