@@ -105,7 +105,8 @@ public class View {
 
     public void showCardsToThrow() {
         int[] cardsBySuit = player.getHand().calculateCardsBySuit();
-        String[] cardsSymbols = {"x \u2665  ", "x \u2666  ", "x \u2663  ", "x \u2660  "};
+        String[] cardsSymbols = {"x \u001B[31m\u2665\u001B[0m  ", "x \u001B[31m\u2666\u001B[0m  ",
+                                "x \u001B[30m\u2663\u001B[0m  ", "x \u001B[30m\u2660\u001B[0m  "};
         System.out.println("\u001B[36mYou can throw following cards:\u001B[0m");
         for (int i = 0; i < cardsBySuit.length; i++) {
             if (cardsBySuit[i] == 0)

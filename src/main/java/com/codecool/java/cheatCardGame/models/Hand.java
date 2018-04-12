@@ -39,10 +39,10 @@ public class Hand implements Stackable {
     public String toString() {
         int[] cardsBySuit = calculateCardsBySuit();
         String hand = "Cards in hand: " +
-                    cardsBySuit[0] + "x \u2665, " +
-                    cardsBySuit[1] + "x \u2666, " +
-                    cardsBySuit[2] + "x \u2663, " +
-                    cardsBySuit[3] + "x \u2660";
+                    cardsBySuit[0] + "x \u001B[31m\u2665\u001B[0m, " +
+                    cardsBySuit[1] + "x \u001B[31m\u2666\u001B[0m, " +
+                    cardsBySuit[2] + "x \u001B[30m\u2663\u001B[0m, " +
+                    cardsBySuit[3] + "x \u001B[30m\u2660\u001B[0m";
         return hand;
     }
 
