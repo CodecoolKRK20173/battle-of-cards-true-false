@@ -3,6 +3,7 @@ package com.codecool.java.cheatCardGame.view;
 import com.codecool.java.cheatCardGame.controllers.KeyReader;
 import com.codecool.java.cheatCardGame.models.Stack;
 import com.codecool.java.cheatCardGame.models.Player;
+import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.InputStreamReader;
@@ -114,6 +115,10 @@ public class View {
             System.out.print((i + 1) + ". " + cardsBySuit[i] + cardsSymbols[i]);
         }System.out.println("\n\u001B[36mEnter a number:\u001B[0m");
         keyReader.setVisible(false);
+        Scanner scanner = new Scanner(System.in);
+        scanner.next();
+        keyReader.setVisible(true);
+
     }
 
 
