@@ -30,7 +30,6 @@ public class AppController {
         this.deck = generateDeck();
         dealCards();
         updateState();
-
     }
 
     public AppController(String gameMode) {
@@ -47,8 +46,12 @@ public class AppController {
     }
 
 
-    public void run() {
-        //
+    public void run() throws InterruptedException {
+        while(true) {
+            getState();
+            Thread.sleep(1000);
+            System.out.println(this.playerList);
+        }
     }
 
 
