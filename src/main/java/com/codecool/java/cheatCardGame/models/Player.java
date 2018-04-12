@@ -23,7 +23,7 @@ public class Player {
     }
 
 
-    public void setPlayerMove(String lastPlayerMove) {
+    public void setLastPlayerMove(String lastPlayerMove) {
         this.lastPlayerMove = lastPlayerMove;
     }
 
@@ -39,5 +39,15 @@ public class Player {
 
     public String getLastPlayerMove() {
         return this.lastPlayerMove;
+    }
+
+
+    public boolean isLastMove() {
+        return this.isLastMove;
+    }
+
+
+    public void setIsLastMove() {
+        this.isLastMove = !this.isLastMove;
     }
 }
