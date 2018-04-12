@@ -1,5 +1,6 @@
 package com.codecool.java.cheatCardGame.controllers;
 
+import com.codecool.java.cheatCardGame.view.View;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.Button;
