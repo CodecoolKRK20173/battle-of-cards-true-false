@@ -23,8 +23,8 @@ public class Player {
     }
 
 
-    public void setPlayerMove(String playerMove) {
-        this.playerMove = playerMove;
+    public void setPlayerMove(String lastPlayerMove) {
+        this.lastPlayerMove = lastPlayerMove;
     }
 
 
@@ -38,6 +38,6 @@ public class Player {
 
 
     public String getLastPlayerMove() {
-        return this.playerMove;
+        return this.lastPlayerMove;
     }
 }
