@@ -1,14 +1,5 @@
 package com.codecool.java.cheatCardGame.models;
 
-import com.codecool.java.cheatCardGame.controllers.GameStateController;
-import com.codecool.java.cheatCardGame.models.Suit;
-import com.codecool.java.cheatCardGame.models.Card;
-import com.codecool.java.cheatCardGame.models.Player;
-import com.codecool.java.cheatCardGame.models.Rank;
-import com.google.gson.Gson;
-import com.codecool.java.cheatCardGame.models.Stack;
-import com.codecool.java.cheatCardGame.view.View;
-import com.google.gson.internal.LinkedTreeMap;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,6 +26,7 @@ public class Table {
     public void run() {
         System.out.println(this.deck);
         System.out.println(this.playerList);
+        System.out.println("-------" + this.playerList.get(0).getHand().getCardList());
     }
 
 

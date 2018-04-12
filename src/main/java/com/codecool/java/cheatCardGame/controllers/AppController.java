@@ -28,14 +28,29 @@ public class AppController {
         }
 
         if (gameMode.equals("join")) {
-            Table joinGame = gson.fromJson(GSC.getGameState(), Table.class);
-            joinGame.run();
-
+            while(true) {
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                String gameState = GSC.getGameState();
+                while(gameState == null) {
+                    GSC.setFileId();
+                }
+                if(gameState != null) {
+                    Table joinGame = gson.fromJson(gameState, Table.class);
+                    joinGame.run();
+                }
+            }
         } else if (gameMode.equals("host")) {
-
             Table hostGame = new Table(Integer.parseInt(numOfPlayers), gameMode);
-            GSC.updateGameState(gson.toJson(hostGame));
-            hostGame.run();
+            while(true) {
+                GSC.updateGameState(gson.toJson(hostGame));
+                hostGame.getPlayerList().get(0).getHand().getCardList().remove(0);
+                hostGame.run();
+                System.out.println("________________________");
+            }
         }
     }
 }

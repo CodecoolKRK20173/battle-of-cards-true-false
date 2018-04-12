@@ -21,15 +21,17 @@ public class GameStateController {
             System.out.println("Error: " + e.getMessage());
         }
     }
+
     public String getGameState() {
+        setFileId();
+        System.out.println(this.fileId);
         return GDrive.getFileContent(this.service, this.fileId);
+
     }
 
     public void updateGameState(String fileContent) {
         setFileId();
-        if(GDrive.removeFile(this.service, this.fileId)) {
-            this.fileId = GDrive.setNewFile(this.service, this.fileName, fileContent);
-        }
+        this.fileId = GDrive.setNewFile(this.service, this.fileId, this.fileName, fileContent);
     }
 
     public void setFileId() {

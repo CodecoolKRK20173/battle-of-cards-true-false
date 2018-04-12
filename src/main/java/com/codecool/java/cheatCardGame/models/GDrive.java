@@ -132,7 +132,7 @@ public class GDrive {
         return outputStream.toString();
     }
 
-    public static String setNewFile(Drive service, String fileName, String fileContent) {
+    public static String setNewFile(Drive service, String fileId, String fileName, String fileContent) {
         try {
             File fileMetadata = new File();
             fileMetadata.setName(fileName);
@@ -144,7 +144,8 @@ public class GDrive {
 
             java.io.File filePath = new java.io.File(fileName);
             FileContent mediaContent = new FileContent("application/json", filePath);
-            File file = service.files().create(fileMetadata, mediaContent).setFields("id").execute();
+//            File file = service.files().create(fileMetadata, mediaContent).setFields("id").execute();
+            File file = service.files().update(fileId, fileMetadata, mediaContent).execute();
 
             return file.getId();
 
