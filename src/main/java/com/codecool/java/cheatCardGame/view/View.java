@@ -1,5 +1,6 @@
 package com.codecool.java.cheatCardGame.view;
 
+import com.codecool.java.cheatCardGame.controllers.KeyReader;
 import com.codecool.java.cheatCardGame.models.Stack;
 import com.codecool.java.cheatCardGame.models.Player;
 import java.util.List;
@@ -34,7 +35,7 @@ public class View {
         System.out.print("Enemy players cards: ");
         for (Player enemy: enemyPlayers) {
             System.out.print(enemy.getName() + " -> " +
-                            enemy.getHand().getNumOfCards()+ "x");
+                            enemy.getHand().getNumOfCards()+ "x ");
         } System.out.println("");
     }
 

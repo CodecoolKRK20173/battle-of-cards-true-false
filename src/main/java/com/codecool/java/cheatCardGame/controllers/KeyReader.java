@@ -1,4 +1,4 @@
-package com.codecool.java.cheatCardGame.view;
+package com.codecool.java.cheatCardGame.controllers;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -8,7 +8,6 @@ import java.lang.Character;
 
 public class KeyReader extends JFrame implements KeyListener {
 
-    private KeyEvent keyEvent;
     private View view;
 
 
