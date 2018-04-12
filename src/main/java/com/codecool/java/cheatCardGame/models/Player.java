@@ -6,7 +6,8 @@ public class Player {
     private String name;
     private Hand hand;
     private boolean isPlayerMove; // for test
-    private String playerMove;// for test
+    private boolean isLastMove;
+    private String lastPlayerMove;// for test
 
     public Player(String name) {
         this.name = name;
@@ -36,7 +37,7 @@ public class Player {
     }
 
 
-    public String getPlayerMove() {
+    public String getLastPlayerMove() {
         return this.playerMove;
     }
 }
