@@ -23,12 +23,22 @@ public class GameStateController {
     }
 
     public String getGameState() {
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         System.out.println(this.fileId);
         return GDrive.getFileContent(this.service, this.fileId);
 
     }
 
     public void updateGameState(String fileContent) {
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         this.fileId = GDrive.setNewFile(this.service, this.fileId, this.fileName, fileContent);
     }
 

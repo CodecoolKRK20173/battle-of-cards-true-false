@@ -45,10 +45,11 @@ public class AppController {
                 System.out.println("What's your move? [Check/Play]: ");
                 if(me.isPlayerMove()) {
                     int chuj = in.nextInt();
-                    this.joinGame.putCardInWaste(me.getHand().getCardList().get(chuj));
+                    this.hostGame.putCardInWaste(me.getHand().getCardList().get(chuj));
                     me.getHand().getCardList().remove(chuj);
-                    GSC.updateGameState(gson.toJson(this.joinGame));
+                    me.turnPlayerMove();
                 }
+                GSC.updateGameState(gson.toJson(this.joinGame));
             }
         } else if (gameMode.equals("host")) {
             this.hostGame = new Table(Integer.parseInt(numOfPlayers), gameMode);
@@ -74,8 +75,9 @@ public class AppController {
                     int chuj = in.nextInt();
                     this.hostGame.putCardInWaste(me.getHand().getCardList().get(chuj));
                     me.getHand().getCardList().remove(chuj);
-                    GSC.updateGameState(gson.toJson(this.hostGame));
+                    me.turnPlayerMove();
                 }
+                GSC.updateGameState(gson.toJson(this.hostGame));
             }
 
         }
