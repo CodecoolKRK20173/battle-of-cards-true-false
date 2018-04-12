@@ -64,8 +64,8 @@ public class AppController {
 //                hostGame.getPlayerList().get(0).getHand().getCardList().remove(0);
 //                Player me = hostGame.getPlayerList().get(0);
 //                View view = new View(hostGame.getPlayerList(), me, hostGame.getDeck());
-                Player me = this.hostGame.getPlayerList().get(1);
-                Player oppenent = this.hostGame.getPlayerList().get(0);
+                Player me = this.hostGame.getPlayerList().get(0);
+                Player oppenent = this.hostGame.getPlayerList().get(1);
                 me.turnPlayerMove();
                 int numberOfCardsOnStack = this.hostGame.getWaste().size();
                 System.out.println("Cards on stack: " + numberOfCardsOnStack);
