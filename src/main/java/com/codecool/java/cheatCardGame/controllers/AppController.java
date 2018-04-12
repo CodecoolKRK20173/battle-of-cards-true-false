@@ -1,6 +1,7 @@
 package com.codecool.java.cheatCardGame.controllers;
 
 import com.codecool.java.cheatCardGame.models.Suit;
+import com.google.gson.Gson;
 import com.codecool.java.cheatCardGame.models.Card;
 import com.codecool.java.cheatCardGame.models.Player;
 import com.codecool.java.cheatCardGame.models.Rank;
@@ -18,20 +19,30 @@ public class AppController {
     Rank rank;
     Suit suit;
 
-    public AppController(int numOfPlayers) {
+    public AppController(int numOfPlayers, String gameMode) {
         this.playerList = makePlayers(numOfPlayers);
         this.deck = generateDeck();
         dealCards();
-        // // System.out.println(deck);
-        // //for test only
-        // for(Player player : playerList) {
-        //     System.out.println(player.getName() + "-----------" + player.getHand().cardsList.size());
-        //     System.out.println(player.getHand().cardsList);
-        // }
+        GameStateController c = new GameStateController("cardGame.json");
+        Gson g = new Gson();
+        String userJson = g.toJson(this);
+        System.out.println("----> do zpaisu" + userJson);
+        c.updateGameState(userJson);
+    }
+    
+    public AppController(String gameMode) {
+        //download gson file
+        //initialie playerList
+        //deck = generatedeck ??
+        GameStateController c = new GameStateController("cardGame.json");
+        Gson g = new Gson();
+        String file = c.getGameState();
+        System.out.println("zawartosc pliku ----->> " + file);
+        AppController userObject = g.fromJson(file, AppController.class);
     }
     
     public void run() {
-
+        reader.nextLine();
         while(winCondition()) {
             //get input etc..
             System.out.println("Main loop");
