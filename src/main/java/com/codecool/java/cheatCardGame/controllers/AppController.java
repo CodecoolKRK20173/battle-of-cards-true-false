@@ -37,13 +37,14 @@ public class AppController {
             while(true) {
                 this.joinGame = gson.fromJson(gameState, Table.class);
                 Player me = this.joinGame.getPlayerList().get(1);
+                Player oppenent = this.joinGame.getPlayerList().get(0);
                 int numberOfCardsOnStack2 = this.joinGame.getWaste().size();
                 System.out.println("Cards on stack: " + numberOfCardsOnStack2);
                 System.out.println("________");
                 System.out.println(this.joinGame.getWaste());
                 System.out.println(me.getHand().getCardList());
                 System.out.println("What's your move? [Check/Play]: ");
-                if(me.isPlayerMove()) {
+                if(me.isPlayerMove() && !oppenent.isPlayerMove()){
                     int chuj = in.nextInt();
                     this.hostGame.putCardInWaste(me.getHand().getCardList().get(chuj));
                     me.getHand().getCardList().remove(chuj);
@@ -63,7 +64,8 @@ public class AppController {
 //                hostGame.getPlayerList().get(0).getHand().getCardList().remove(0);
 //                Player me = hostGame.getPlayerList().get(0);
 //                View view = new View(hostGame.getPlayerList(), me, hostGame.getDeck());
-                Player me = this.hostGame.getPlayerList().get(0);
+                Player me = this.hostGame.getPlayerList().get(1);
+                Player oppenent = this.hostGame.getPlayerList().get(0);
                 me.turnPlayerMove();
                 int numberOfCardsOnStack = this.hostGame.getWaste().size();
                 System.out.println("Cards on stack: " + numberOfCardsOnStack);
@@ -71,7 +73,7 @@ public class AppController {
                 System.out.println(this.hostGame.getWaste());
                 System.out.println(me.getHand().getCardList());
                 System.out.println("What's your move? [Check/Play]: ");
-                if(me.isPlayerMove()) {
+                if(me.isPlayerMove() && !oppenent.isPlayerMove()){
                     int chuj = in.nextInt();
                     this.hostGame.putCardInWaste(me.getHand().getCardList().get(chuj));
                     me.getHand().getCardList().remove(chuj);
