@@ -38,31 +38,31 @@ public class AppController {
             this.game = gson.fromJson(gameState, Table.class);
             this.opponent = this.game.getPlayerList().get(0);
             this.player = this.game.getPlayerList().get(1);
-            this.player.turnPlayerMove();
         } else if (gameMode.equals("host")) {
             this.game = new Table(Integer.parseInt(numOfPlayers), gameMode);
             this.player = this.game.getPlayerList().get(0);
             this.opponent = this.game.getPlayerList().get(1);
+            this.player.turnPlayerMove();
         }
 
         Scanner in = new Scanner(System.in);
         GSC.updateGameState(gson.toJson(this.game));
 
         while(true) {
-            this.waste.addAll(this.game.getWaste());
             String gameState = this.GSC.getGameState();
             this.game = gson.fromJson(gameState, Table.class);
             int numberOfCardsOnStack = this.game.getWaste().size();
             System.out.println("Cards on stack: " + numberOfCardsOnStack);
             System.out.println("________");
 
-            System.out.println(this.waste);
+            System.out.println(this.game.getWaste());
             System.out.println(this.player.getHand().getCardList());
             System.out.println("What's your move? [Check/Play]: ");
             System.out.println(this.player.isPlayerMove());
-            if(this.player.isPlayerMove() && this.opponent.isPlayerMove()) {
-                int pickerCard = in.nextInt();
-                this.game.putCardInWaste(this.player.getHand().getCardList().get(pickerCard));
+            String pickerCard = in.nextLine();
+
+            if(this.player.isPlayerMove() && this.opponent.isPlayerMove() && isInt(pickerCard)) {
+                this.game.putCardInWaste(this.player.getHand().getCardList().get(Integer.parseInt(pickerCard)));
                 this.player.getHand().getCardList().remove(pickerCard);
                 this.player.turnPlayerMove();
             }
@@ -72,5 +72,16 @@ public class AppController {
 
         }
 
+    }
+
+    public boolean isInt(String s) {
+        try
+        {
+            Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException ex)
+        {
+            return false;
+        }
     }
 }

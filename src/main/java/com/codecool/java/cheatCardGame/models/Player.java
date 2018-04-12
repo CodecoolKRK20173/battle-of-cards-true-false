@@ -5,7 +5,7 @@ package com.codecool.java.cheatCardGame.models;
 public class Player {
     private String name;
     private Hand hand;
-    private boolean isPlayerMove; // for test
+    private boolean isPlayerMove = false; // for test
     private boolean isLastMove;
     private String lastPlayerMove;// for test
 
