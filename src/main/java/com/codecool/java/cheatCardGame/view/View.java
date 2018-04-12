@@ -95,10 +95,10 @@ public class View {
 
 
     public void showPlayerMove(String move1, String move2) {
-        //System.out.println(move1 + "-->" + playerMove1);
-        //System.out.println(move2 + "-->" + playerMove2);
         if (playerMove1.equals(move1)) {
             showCardsToThrow();
+        } else if (playerMove2.equals(move2)) {
+            System.out.println("\u001B[36mYou checked a stack\u001B[0m");
         }
     }
 
@@ -112,8 +112,8 @@ public class View {
             if (cardsBySuit[i] == 0)
                 break;
             System.out.print((i + 1) + ". " + cardsBySuit[i] + cardsSymbols[i]);
-        }System.out.println("");
-
+        }System.out.println("\n\u001B[36mEnter a number:\u001B[0m");
+        keyReader.setVisible(false);
     }
 
 
@@ -125,5 +125,25 @@ public class View {
         showEnemyMove();
         showPlayerPossibleMoves();
         showPlayerHand();
+    }
+
+
+    public Player getLocalPlayer() {
+        return this.player;
+    }
+
+
+    public String getPlayerMove1() {
+        return this.playerMove1;
+    }
+
+
+    public String getPlayerMove2() {
+        return this.playerMove2;
+    }
+
+
+    public KeyReader getKeyReader() {
+        return this.keyReader;
     }
 }
