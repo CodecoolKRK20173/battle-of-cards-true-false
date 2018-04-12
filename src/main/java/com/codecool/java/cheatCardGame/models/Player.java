@@ -5,6 +5,7 @@ package com.codecool.java.cheatCardGame.models;
 public class Player {
     private String name;
     private Hand hand;
+    private boolean isPlayerMove; // for test
     private String playerMove;// for test
 
     public Player(String name) {
@@ -23,6 +24,15 @@ public class Player {
 
     public void setPlayerMove(String playerMove) {
         this.playerMove = playerMove;
+    }
+
+
+    public void turnPlayerMove(){
+        isPlayerMove = !isPlayerMove;
+    }
+
+    public boolean isPlayerMove() {
+        return this.isPlayerMove;
     }
 
 

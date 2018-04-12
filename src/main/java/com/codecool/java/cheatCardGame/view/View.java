@@ -5,17 +5,23 @@ import com.codecool.java.cheatCardGame.models.Player;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.InputStreamReader;
+import java.awt.event.KeyEvent;
+import java.awt.Button;
 
 public class View {
 
     private List<Player> enemyPlayers;
     private Player player;
     private Stack stack;
+    private String playerMove1 = "1) Throw a card  ";
+    private String playerMove2 = "  2) Check stack";
+    private KeyReader keyReader;
 
     public View(List<Player> enemyPlayers, Player player, Stack stack) {
         this.enemyPlayers = enemyPlayers;
         this.player = player;
         this.stack = stack;
+        this.keyReader = new KeyReader(this);
     }
 
 
@@ -39,9 +45,15 @@ public class View {
 
 
     public void showAllPlayers() {
-        System.out.print(player.getName());
+        if (player.isPlayerMove())
+            System.out.print(" \u001B[46m" + player.getName() + "\u001B[0m");
+        else
+            System.out.print(player.getName());
         for (Player enemy: enemyPlayers) {
-            System.out.print(" " + enemy.getName());
+            if (enemy.isPlayerMove())
+                System.out.print(" \u001B[46m" + enemy.getName() + "\u001B[0m");
+            else
+                System.out.print(" " + enemy.getName());
         } System.out.println("");
     }
 
@@ -59,31 +71,24 @@ public class View {
 
 
     public void showPlayerPossibleMoves() {
-        System.out.println("1) Throw a card    2) Check stack");
-        consoleReadingDemo();
-
+        System.out.print(playerMove1);
+        System.out.println(playerMove2);
     }
 
 
-    private void consoleReadingDemo() {
-        /*InputStreamReader reader = new InputStreamReader(System.in);
-        boolean b = false;
-        while(!b)
-        {
-            try
-            {
-                int key = System.in.read();
-                System.out.println("key pressed");
-                b = true;
-             } catch (java.io.IOException ioex) {
-                System.out.println("IO Exception");
-             }
-             try {
-                Thread.sleep(50);
-                System.out.println("nop yet");
-             } catch (InterruptedException ex) {
-                System.out.println("Interrupted Exception");
-             }
-        }*/
+    public void setHighlightedPlayerMove(String move1, String move2) {
+        this.playerMove1 = move1;
+        this.playerMove2 = move2;
+    }
+
+
+    public void showCurrentGameStage() {
+        System.out.print("\033[2J\033[H");
+        showAllPlayers();
+        showNumOfEnemyCards();
+        showCardStack();
+        showEnemyMove(this.enemyPlayers.get(0));
+        showPlayerPossibleMoves();
+        showPlayerHand();
     }
 }
