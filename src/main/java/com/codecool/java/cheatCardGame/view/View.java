@@ -94,6 +94,28 @@ public class View {
     }
 
 
+    public void showPlayerMove(String move1, String move2) {
+        //System.out.println(move1 + "-->" + playerMove1);
+        //System.out.println(move2 + "-->" + playerMove2);
+        if (playerMove1.equals(move1)) {
+            showCardsToThrow();
+        }
+    }
+
+
+    public void showCardsToThrow() {
+        int[] cardsBySuit = player.getHand().calculateCardsBySuit();
+        String[] cardsSymbols = {"x \u2665  ", "x \u2666  ", "x \u2663  ", "x \u2660  "};
+        System.out.println("\u001B[36mYou can throw following cards:\u001B[0m");
+        for (int i = 0; i < cardsBySuit.length; i++) {
+            if (cardsBySuit[i] == 0)
+                break;
+            System.out.print((i + 1) + ". " + cardsBySuit[i] + cardsSymbols[i]);
+        }System.out.println("");
+
+    }
+
+
     public void showCurrentGameStage() {
         System.out.print("\033[2J\033[H");
         showAllPlayers();
