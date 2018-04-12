@@ -1,121 +1,41 @@
 package com.codecool.java.cheatCardGame.controllers;
 
-import com.codecool.java.cheatCardGame.models.Suit;
-import com.codecool.java.cheatCardGame.models.Card;
-import com.codecool.java.cheatCardGame.models.Player;
-import com.codecool.java.cheatCardGame.models.Rank;
+import com.codecool.java.cheatCardGame.models.*;
 import com.google.gson.Gson;
-import com.codecool.java.cheatCardGame.models.Stack;
-import com.codecool.java.cheatCardGame.view.View;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Scanner;
-import java.util.Iterator;
 
 public class AppController {
-//    Scanner reader = new Scanner(System.in);
-    List<Player> playerList;
-    List<Card> deck;
-    Gson parser = new Gson();
-    Rank rank;
-    Suit suit;
 
-    GameStateController cardState = new GameStateController("cardList.json");
-    GameStateController playerState = new GameStateController("playerList.json");
+    private GameStateController GSC = new GameStateController("table.json");
+    private Gson gson = new Gson();
+    String gameMode = "";
+    Scanner reader = new Scanner(System.in);
+    String hostPattern = "(host|join)";
+    String numOfPlayersPattern = "[2-9]";
+    String numOfPlayers = "0";
 
-    public AppController(int numOfPlayers, String gameMode) {
-        this.playerList = makePlayers(numOfPlayers);
-        this.deck = generateDeck();
-        dealCards();
-        updateState();
-    }
+    public void run() {
 
-    public AppController(String gameMode) {
+        while (!gameMode.matches(hostPattern)) {
+            System.out.print("Do you want to be host or join game? [host/game]:");
+            gameMode = reader.nextLine();
 
-        getState();
-//        playerList.get(1).setLastPlayerMove("Throw a card");
-//        playerList.get(1).turnPlayerMove();
-
-//        View view = new View(playerList.subList(1, playerList.size()), playerList.get(0), new Stack());
-
-        System.out.println(this.playerList);
-        System.out.println(this.deck);
-        System.out.println("Main loop");
-    }
-
-
-    public void run() throws InterruptedException {
-        while(true) {
-            getState();
-            Thread.sleep(1000);
-            System.out.println(this.playerList);
         }
-    }
-
-
-    public void getState() {
-        this.deck = this.parser.fromJson(this.cardState.getGameState(), List.class);
-        this.playerList = this.parser.fromJson(this.playerState.getGameState(), List.class);
-    }
-
-    public void updateState() {
-        playerState.updateGameState(this.parser.toJson(this.playerList));
-        cardState.updateGameState(this.parser.toJson(this.deck));
-    }
-
-
-    public boolean winCondition() {
-        int counter = 0;
-        for(Player player : playerList) {
-            if(!player.getHand().getCardList().isEmpty()) counter++;
-        }
-        if(counter == playerList.size()) return true;
-        else return false;
-
-    }
-
-    public List<Player> makePlayers(int numberOfPlayers) {
-        List<Player> playerList = new ArrayList<>();
-        Scanner reader = new Scanner(System.in);
-        String playerName;
-
-        for(int i=0; i<numberOfPlayers; i++) {
-
-            System.out.print("Name of player " + (i+1)+ ": ");
-            playerName = reader.nextLine();
-            playerList.add(new Player(playerName));
+        while (!numOfPlayers.matches(numOfPlayersPattern) && gameMode.equals("host")) {
+            System.out.print("number of players? :");
+            numOfPlayers = reader.nextLine();
         }
 
-        return playerList;
-    }
+        if (gameMode.equals("join")) {
+            Table joinGame = gson.fromJson(GSC.getGameState(), Table.class);
+            joinGame.run();
 
-    public List<Player> getPlayerList() {
-        return this.playerList;
-    }
+        } else if (gameMode.equals("host")) {
 
-    public List<Card> generateDeck() {
-        List<Card> deck = new ArrayList<>();
-        for(Suit suit : Suit.values()) {
-            for(Rank rank :Rank.values()) {
-                deck.add(new Card(suit, rank));
-            }
-        }
-        Collections.shuffle(deck);
-        return deck;
-    }
-
-
-    public void dealCards() {
-        Iterator<Card> deckIterator = deck.iterator();
-        while(deckIterator.hasNext()) {
-            for(Player player : playerList) {
-                if(deckIterator.hasNext()) {
-                    player.getHand().addCard(deckIterator.next());
-                }
-            }
+            Table hostGame = new Table(Integer.parseInt(numOfPlayers), gameMode);
+            GSC.updateGameState(gson.toJson(hostGame));
+            hostGame.run();
         }
     }
-
 }

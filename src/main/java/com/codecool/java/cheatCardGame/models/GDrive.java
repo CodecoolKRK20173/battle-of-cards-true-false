@@ -164,21 +164,25 @@ public class GDrive {
         }
     }
 
-    public static String getFileId(Drive service, String fileName) throws IOException {
+    public static String getFileId(Drive service, String fileName) {
         String fileId = null;
-        FileList result = service.files().list()
-                .setFields("nextPageToken, files(id, name)")
-                .execute();
-        List<File> files = result.getFiles();
-        if (files == null || files.size() == 0) {
-            System.out.println("No files found.");
-        } else {
-            for (File file : files) {
-                if (file.getName().equals(fileName)) {
-                    fileId = file.getId();
-                    break;
+        try {
+            FileList result = service.files().list()
+                    .setFields("nextPageToken, files(id, name)")
+                    .execute();
+            List<File> files = result.getFiles();
+            if (files == null || files.size() == 0) {
+                System.out.println("No files found.");
+            } else {
+                for (File file : files) {
+                    if (file.getName().equals(fileName)) {
+                        fileId = file.getId();
+                        break;
+                    }
                 }
             }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
         return fileId;
     }

@@ -22,12 +22,16 @@ public class KeyReader extends JFrame implements KeyListener {
     }
 
     public void keyPressed(KeyEvent e) {
+        String highlightedPlayerMove1 = "\u001B[46m1) Throw a card  \u001B[0m";
+        String highlightedPlayerMove2 = "\u001B[46m  2) Check stack\u001B[0m";
         if (Character.toString(e.getKeyChar()).equalsIgnoreCase("a")) {
-            view.setHighlightedPlayerMove("\u001B[46m1) Throw a card  \u001B[0m", "  2) Check stack");
+            view.setHighlightedPlayerMove(highlightedPlayerMove1, "  2) Check stack");
             view.showCurrentGameStage();
         } else if (Character.toString(e.getKeyChar()).equalsIgnoreCase("d")) {
-            view.setHighlightedPlayerMove("1) Throw a card  ", "\u001B[46m  2) Check stack\u001B[0m");
+            view.setHighlightedPlayerMove("1) Throw a card  ", highlightedPlayerMove2);
             view.showCurrentGameStage();
+        } else if (e.getKeyCode() == 10) {
+            view.showPlayerMove(highlightedPlayerMove1, highlightedPlayerMove2);
         }
     }
 

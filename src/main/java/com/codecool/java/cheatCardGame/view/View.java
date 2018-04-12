@@ -3,6 +3,7 @@ package com.codecool.java.cheatCardGame.view;
 import com.codecool.java.cheatCardGame.controllers.KeyReader;
 import com.codecool.java.cheatCardGame.models.Stack;
 import com.codecool.java.cheatCardGame.models.Player;
+import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.InputStreamReader;
@@ -59,15 +60,18 @@ public class View {
     }
 
 
-    public void showEnemyMove(Player enemy) {
+    public void showEnemyMove() {
+        Player enemy = getPlayerWithLastMoveTurn();
         String move1 = "Throw a card";
         String move2 = "Check a stack";
-        System.out.print("Player " + enemy.getName() + ": ");
-        if (enemy.getPlayerMove().equalsIgnoreCase(move1))
-            System.out.print(move1);
-        else
-            System.out.print(move2);
-        System.out.println("");
+        if (enemy != null) {
+            System.out.print("Player " + enemy.getName() + ": ");
+            if (enemy.getLastPlayerMove().equalsIgnoreCase(move1))
+                System.out.print(move1);
+            else
+                System.out.print(move2);
+            System.out.println("");
+        }
     }
 
 
@@ -83,13 +87,68 @@ public class View {
     }
 
 
+    private Player getPlayerWithLastMoveTurn() {
+        for (Player enemyPlayer: enemyPlayers) {
+            if (enemyPlayer.isLastMove())
+                return enemyPlayer;
+        } return null;
+    }
+
+
+    public void showPlayerMove(String move1, String move2) {
+        if (playerMove1.equals(move1)) {
+            showCardsToThrow();
+        } else if (playerMove2.equals(move2)) {
+            System.out.println("\u001B[36mYou checked a stack\u001B[0m");
+        }
+    }
+
+
+    public void showCardsToThrow() {
+        int[] cardsBySuit = player.getHand().calculateCardsBySuit();
+        String[] cardsSymbols = {"x \u001B[31m\u2665\u001B[0m  ", "x \u001B[31m\u2666\u001B[0m  ",
+                                "x \u001B[30m\u2663\u001B[0m  ", "x \u001B[30m\u2660\u001B[0m  "};
+        System.out.println("\u001B[36mYou can throw following cards:\u001B[0m");
+        for (int i = 0; i < cardsBySuit.length; i++) {
+            if (cardsBySuit[i] == 0)
+                break;
+            System.out.print((i + 1) + ". " + cardsBySuit[i] + cardsSymbols[i]);
+        }System.out.println("\n\u001B[36mEnter a number:\u001B[0m");
+        keyReader.setVisible(false);
+        Scanner scanner = new Scanner(System.in);
+        scanner.next();
+        keyReader.setVisible(true);
+
+    }
+
+
     public void showCurrentGameStage() {
         System.out.print("\033[2J\033[H");
         showAllPlayers();
         showNumOfEnemyCards();
         showCardStack();
-        showEnemyMove(this.enemyPlayers.get(0));
+        showEnemyMove();
         showPlayerPossibleMoves();
         showPlayerHand();
+    }
+
+
+    public Player getLocalPlayer() {
+        return this.player;
+    }
+
+
+    public String getPlayerMove1() {
+        return this.playerMove1;
+    }
+
+
+    public String getPlayerMove2() {
+        return this.playerMove2;
+    }
+
+
+    public KeyReader getKeyReader() {
+        return this.keyReader;
     }
 }
