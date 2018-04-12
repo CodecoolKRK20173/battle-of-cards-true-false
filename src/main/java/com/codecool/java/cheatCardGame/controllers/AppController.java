@@ -1,22 +1,25 @@
 package com.codecool.java.cheatCardGame.controllers;
 
 import com.codecool.java.cheatCardGame.models.*;
-import com.codecool.java.cheatCardGame.view.View;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class AppController {
 
     private GameStateController GSC = new GameStateController("table.json");
     private Gson gson = new Gson();
-    String gameMode = "";
-    Scanner reader = new Scanner(System.in);
-    String hostPattern = "(host|join)";
-    String numOfPlayersPattern = "[2-9]";
-    String numOfPlayers = "0";
-    Table joinGame;
-    Table hostGame;
+    private String gameMode = "";
+    private Scanner reader = new Scanner(System.in);
+    private String hostPattern = "(host|join)";
+    private String numOfPlayersPattern = "[2-9]";
+    private String numOfPlayers = "0";
+    private Table game;
+    private Player player;
+    private Player opponent;
+    private List<Card> waste = new ArrayList<>();
 
     public void run() {
 
@@ -31,57 +34,43 @@ public class AppController {
         }
 
         if (gameMode.equals("join")) {
-            Scanner in = new Scanner(System.in);
             String gameState = this.GSC.getGameState();
-            this.joinGame = gson.fromJson(gameState, Table.class);
-            while(true) {
-                this.joinGame = gson.fromJson(gameState, Table.class);
-                Player me = this.joinGame.getPlayerList().get(1);
-                Player oppenent = this.joinGame.getPlayerList().get(0);
-                int numberOfCardsOnStack2 = this.joinGame.getWaste().size();
-                System.out.println("Cards on stack: " + numberOfCardsOnStack2);
-                System.out.println("________");
-                System.out.println(this.joinGame.getWaste());
-                System.out.println(me.getHand().getCardList());
-                System.out.println("What's your move? [Check/Play]: ");
-                if(me.isPlayerMove() && !oppenent.isPlayerMove()){
-                    int chuj = in.nextInt();
-                    this.hostGame.putCardInWaste(me.getHand().getCardList().get(chuj));
-                    me.getHand().getCardList().remove(chuj);
-                    me.turnPlayerMove();
-                }
-                GSC.updateGameState(gson.toJson(this.joinGame));
-            }
+            this.game = gson.fromJson(gameState, Table.class);
+            this.opponent = this.game.getPlayerList().get(0);
+            this.player = this.game.getPlayerList().get(1);
+            this.player.turnPlayerMove();
         } else if (gameMode.equals("host")) {
-            this.hostGame = new Table(Integer.parseInt(numOfPlayers), gameMode);
-            Scanner in = new Scanner(System.in);
-            GSC.updateGameState(gson.toJson(this.hostGame));
+            this.game = new Table(Integer.parseInt(numOfPlayers), gameMode);
+            this.player = this.game.getPlayerList().get(0);
+            this.opponent = this.game.getPlayerList().get(1);
+        }
 
-            while(true) {
+        Scanner in = new Scanner(System.in);
+        GSC.updateGameState(gson.toJson(this.game));
 
-                String gameState = this.GSC.getGameState();
-                this.hostGame = gson.fromJson(gameState, Table.class);
-//                hostGame.getPlayerList().get(0).getHand().getCardList().remove(0);
-//                Player me = hostGame.getPlayerList().get(0);
-//                View view = new View(hostGame.getPlayerList(), me, hostGame.getDeck());
-                Player me = this.hostGame.getPlayerList().get(0);
-                Player oppenent = this.hostGame.getPlayerList().get(1);
-                me.turnPlayerMove();
-                int numberOfCardsOnStack = this.hostGame.getWaste().size();
-                System.out.println("Cards on stack: " + numberOfCardsOnStack);
-                System.out.println("________");
-                System.out.println(this.hostGame.getWaste());
-                System.out.println(me.getHand().getCardList());
-                System.out.println("What's your move? [Check/Play]: ");
-                if(me.isPlayerMove() && !oppenent.isPlayerMove()){
-                    int chuj = in.nextInt();
-                    this.hostGame.putCardInWaste(me.getHand().getCardList().get(chuj));
-                    me.getHand().getCardList().remove(chuj);
-                    me.turnPlayerMove();
-                }
-                GSC.updateGameState(gson.toJson(this.hostGame));
+        while(true) {
+            this.waste.addAll(this.game.getWaste());
+            String gameState = this.GSC.getGameState();
+            this.game = gson.fromJson(gameState, Table.class);
+            int numberOfCardsOnStack = this.game.getWaste().size();
+            System.out.println("Cards on stack: " + numberOfCardsOnStack);
+            System.out.println("________");
+
+            System.out.println(this.waste);
+            System.out.println(this.player.getHand().getCardList());
+            System.out.println("What's your move? [Check/Play]: ");
+            System.out.println(this.player.isPlayerMove());
+            if(this.player.isPlayerMove() && this.opponent.isPlayerMove()) {
+                int pickerCard = in.nextInt();
+                this.game.putCardInWaste(this.player.getHand().getCardList().get(pickerCard));
+                this.player.getHand().getCardList().remove(pickerCard);
+                this.player.turnPlayerMove();
             }
+            GSC.updateGameState(gson.toJson(this.game));
+            System.out.println(this.game.getWaste());
+            System.out.println(this.game);
 
         }
+
     }
 }
