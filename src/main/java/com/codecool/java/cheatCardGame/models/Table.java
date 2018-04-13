@@ -1,20 +1,28 @@
 package com.codecool.java.cheatCardGame.models;
 
-
+import com.codecool.java.cheatCardGame.view.View;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Iterator;
+;
 
 public class Table {
+    Scanner scanner;
     List<Player> playerList;
     List<Card> deck;
+    Stack stack;
+    boolean isGameDurning;
+    View view;
 
     public Table(int numOfPlayers, String gameMode) {
+        this.scanner = new Scanner(System.in);
         this.playerList = makePlayers(numOfPlayers);
         this.deck = generateDeck();
+        this.stack = new Stack();
         dealCards();
+        isGameDurning = true;
     }
 
     public Table(String gameMode) {
@@ -24,9 +32,79 @@ public class Table {
     }
 
     public void run() {
-        System.out.println(this.deck);
-        System.out.println(this.playerList);
-        System.out.println("-------" + this.playerList.get(0).getHand().getCardList());
+        setFirstMoveTurn();
+        view  = new View(playerList.subList(1, playerList.size()),
+                        playerList.get(0), stack);
+        while (isGameDurning) {
+            moveTurn();
+            //view.getKeyReader().setVisible(true);
+        }
+    }
+
+    private void setFirstMoveTurn() {
+        playerList.get(0).turnPlayerMove();
+        for (Player player: playerList) {
+            player.setCardsBySuit();
+        }
+    }
+
+
+    private void moveTurn() {
+        for (Player player: playerList) {
+            if (player.isPlayerMove()) {
+                makeATurn(player);
+            }
+        }
+    }
+
+
+    private void makeATurn(Player player) {
+        int numOfSuit = scanner.nextInt();
+        Suit cardSuit = getCardSuit(numOfSuit);
+        List<Card> cardsByOneSuit = player.getCardsBySuit().get(cardSuit);
+        view.showChosenCardSuit(cardSuit);
+        int numOfCard = scanner.nextInt();
+        for (int i = 0; i < numOfCard; i++) {
+            Card card = cardsByOneSuit.get(0);
+            stack.addCard(card);
+            player.getHand().getCardList().remove(card);
+            player.getCardsBySuit().get(cardSuit).remove(card);
+        }
+        changeMoveTurn(player);
+        view.getKeyReader().setVisible(true);
+
+    }
+
+
+    private void changeMoveTurn(Player player) {
+        player.turnPlayerMove();
+        player.setLastPlayerMove("Throw a card");
+        player.setIsLastMove();
+        for (Player enem: playerList) {
+            if (enem != player)
+                setSecondPlayerTurn(player, enem);
+        }
+    }
+
+
+    private void setSecondPlayerTurn(Player firstPlayer, Player secondPlayer) {
+        secondPlayer.turnPlayerMove();
+        playerList.set(0, secondPlayer);
+        playerList.set(1, firstPlayer);
+        view.setLocalPlayer(playerList.get(0));
+        view.getPlayerList().set(0, playerList.get(1));
+    }
+
+
+    private Suit getCardSuit(int numOfSuit) {
+        if (numOfSuit == 1)
+            return Suit.HEARTS;
+        else if (numOfSuit == 2)
+            return Suit.DIAMONDS;
+        else if (numOfSuit == 3)
+            return Suit.CLUBS;
+        else
+            return Suit.SPADES;
     }
 
 
