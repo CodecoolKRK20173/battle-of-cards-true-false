@@ -1,12 +1,14 @@
 package com.codecool.java.cheatCardGame.models;
 
 import com.codecool.java.cheatCardGame.view.View;
+import java.lang.IndexOutOfBoundsException;
+import java.util.InputMismatchException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Iterator;
-;
+
 
 public class Table {
     Scanner scanner;
@@ -37,7 +39,6 @@ public class Table {
                         playerList.get(0), stack);
         while (isGameDurning) {
             moveTurn();
-            //view.getKeyReader().setVisible(true);
         }
     }
 
@@ -59,20 +60,38 @@ public class Table {
 
 
     private void makeATurn(Player player) {
-        int numOfSuit = scanner.nextInt();
-        Suit cardSuit = getCardSuit(numOfSuit);
-        List<Card> cardsByOneSuit = player.getCardsBySuit().get(cardSuit);
-        view.showChosenCardSuit(cardSuit);
-        int numOfCard = scanner.nextInt();
-        for (int i = 0; i < numOfCard; i++) {
-            Card card = cardsByOneSuit.get(0);
-            stack.addCard(card);
-            player.getHand().getCardList().remove(card);
-            player.getCardsBySuit().get(cardSuit).remove(card);
+        try {
+            int numOfSuit = scanner.nextInt();
+            Suit cardSuit = getCardSuit(numOfSuit);
+            List<Card> cardsByOneSuit = player.getCardsBySuit().get(cardSuit);
+            view.showChosenCardSuit(cardSuit);
+            int numOfCard = validateNumberOfCardsToMove(cardSuit, cardsByOneSuit);
+            /*while (numOfCard > cardsByOneSuit.size()) {
+                System.out.println("You don't have " + numOfCard + " cards!");
+                view.showChosenCardSuit(cardSuit);
+                numOfCard = scanner.nextInt();
+            }*/
+            for (int i = 0; i < numOfCard; i++) {
+                Card card = cardsByOneSuit.get(0);
+                stack.addCard(card);
+                player.getHand().getCardList().remove(card);
+                player.getCardsBySuit().get(cardSuit).remove(card);
+            }
+            changeMoveTurn(player);
+            view.getKeyReader().setVisible(true);
+        } catch (InputMismatchException er) {
+            System.out.println("You didn't entered a number");
+            scanner.next();
         }
-        changeMoveTurn(player);
-        view.getKeyReader().setVisible(true);
+    }
 
+    private int validateNumberOfCardsToMove(Suit cardSuit, List<Card> cardsByOneSuit) {
+        int numOfCard = scanner.nextInt();
+        while (numOfCard > cardsByOneSuit.size()) {
+            System.out.println("You don't have " + numOfCard + " cards!");
+            view.showChosenCardSuit(cardSuit);
+            numOfCard = scanner.nextInt();
+        } return numOfCard;
     }
 
 
