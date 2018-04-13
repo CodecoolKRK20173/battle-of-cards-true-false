@@ -12,18 +12,23 @@ public class MessageController {
         int mode = in.nextInt();
 
         if (mode == 0) {
-            while(true) {
+            while(this.message == null && this.message.length() == 0) {
                 System.out.print("Type your message: ");
                 this.message = in.nextLine();
                 GSC.updateGameState(this.message);
             }
             //wysylanie
         } else {
-
+            while(true) {
+                this.message = GSC.getGameState();
+                System.out.println(this.message);
+            }
             //pobieranie
         }
 
 
     }
+
+    public
 
 }
