@@ -1,6 +1,8 @@
 package com.codecool.java.cheatCardGame.models;
 
 
+import com.google.api.client.util.DateTime;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,11 +12,13 @@ import java.util.Iterator;
 public class Table {
     List<Player> playerList;
     List<Card> deck;
-    List<Card> waste = new ArrayList<>();
+    List<Card> waste;
+    DateTime lastUpdate;
 
     public Table(int numOfPlayers, String gameMode) {
         this.playerList = makePlayers(numOfPlayers);
         this.deck = generateDeck();
+        this.waste = new ArrayList<>();
         dealCards();
     }
 
@@ -28,6 +32,15 @@ public class Table {
 //        System.out.println(this.deck);
 //        System.out.println(this.playerList);
 //        System.out.println("-------" + this.playerList.get(0).getHand().getCardList());
+    }
+
+
+    public DateTime getLastUpdate() {
+        return this.lastUpdate;
+    }
+
+    public DateTime setLastUpdate(DateTime update) {
+       return this.lastUpdate = update;
     }
 
     public List<Card> getDeck() {
