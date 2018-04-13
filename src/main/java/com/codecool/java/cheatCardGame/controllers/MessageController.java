@@ -6,29 +6,37 @@ public class MessageController {
 
     GameStateController GSC = new GameStateController("table.json");
     public String message;
+
     public void run() {
 
         Scanner in = new Scanner(System.in);
         int mode = in.nextInt();
-
-        if (mode == 0) {
-            while(this.message == null && this.message.length() == 0) {
+        while (true) {
+            if (mode == 0) {
                 System.out.print("Type your message: ");
                 this.message = in.nextLine();
                 GSC.updateGameState(this.message);
-            }
-            //wysylanie
-        } else {
-            while(true) {
+            } else {
                 this.message = GSC.getGameState();
                 System.out.println(this.message);
             }
-            //pobieranie
+            sleep(1000);
+            clearScreen();
+
         }
-
-
     }
 
-    public
+    public void sleep(long time) {
+        try {
+            Thread.sleep(time);
+        } catch (Exception e) {
+            //
+        }
+    }
+
+    public void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
 
 }

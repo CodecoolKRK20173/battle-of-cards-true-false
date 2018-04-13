@@ -28,7 +28,7 @@ public class GameStateController {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        System.out.println(this.fileId);
+//        System.out.println(this.fileId);
         return GDrive.getFileContent(this.service, this.fileId);
 
     }
