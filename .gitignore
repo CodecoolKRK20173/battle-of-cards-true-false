@@ -1,5 +1,6 @@
 # Compiled class file
 *.class
+*.json
 src/target/
 target/
 # Maven staff
@@ -8,8 +9,9 @@ target/
 .project
 .settings/
 
-# VSC staff
+# Editors staff
 .vscode/
+.idea/
 
 # Log file
 *.log
