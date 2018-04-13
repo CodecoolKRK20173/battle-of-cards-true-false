@@ -1,5 +1,6 @@
 package com.codecool.java.cheatCardGame.view;
 
+import com.codecool.java.cheatCardGame.models.Suit;
 import com.codecool.java.cheatCardGame.controllers.KeyReader;
 import com.codecool.java.cheatCardGame.models.Stack;
 import com.codecool.java.cheatCardGame.models.Player;
@@ -18,6 +19,7 @@ public class View {
     private String playerMove1 = "1) Throw a card  ";
     private String playerMove2 = "  2) Check stack";
     private KeyReader keyReader;
+    private Player tempPlayer;
 
     public View(List<Player> enemyPlayers, Player player, Stack stack) {
         this.enemyPlayers = enemyPlayers;
@@ -111,14 +113,16 @@ public class View {
         System.out.println("\u001B[36mYou can throw following cards:\u001B[0m");
         for (int i = 0; i < cardsBySuit.length; i++) {
             if (cardsBySuit[i] == 0)
-                break;
+                i++;
             System.out.print((i + 1) + ". " + cardsBySuit[i] + cardsSymbols[i]);
         }System.out.println("\n\u001B[36mEnter a number:\u001B[0m");
         keyReader.setVisible(false);
-        Scanner scanner = new Scanner(System.in);
-        scanner.next();
-        keyReader.setVisible(true);
+    }
 
+
+    public void showChosenCardSuit(Suit cardSuit) {
+        System.out.println("\u001B[36mYou choose: " + cardSuit.getSuitName() + "\u001B[0m");
+        System.out.println("\u001B[36mEnter how many cards do u want put on stack:\u001B[0m");
     }
 
 
@@ -138,6 +142,21 @@ public class View {
     }
 
 
+    public void setLocalPlayer(Player player) {
+        this.player = player;
+    }
+
+
+    public void setTempPlayer(Player player) {
+        this.tempPlayer = player;
+    }
+
+
+    public Player getTempPlayer() {
+        return this.tempPlayer;
+    }
+
+
     public String getPlayerMove1() {
         return this.playerMove1;
     }
@@ -150,5 +169,10 @@ public class View {
 
     public KeyReader getKeyReader() {
         return this.keyReader;
+    }
+
+
+    public List<Player> getPlayerList() {
+        return this.enemyPlayers;
     }
 }
